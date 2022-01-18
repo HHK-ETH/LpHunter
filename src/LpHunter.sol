@@ -34,11 +34,11 @@ contract LpHunter {
     /// @param _victim The victim address to send back tokens to
     function shoot(IPair _target, address _victim) public {
         IERC20 tokenA = _target.token0();
-        IERC20 tokenB = _target.token0();
+        IERC20 tokenB = _target.token1();
         _target.burn(address(this));
         tokenA.transfer(owner, tokenA.balanceOf(address(this)) / tip);
-        tokenA.transfer(_victim, tokenB.balanceOf(address(this)));
-        tokenB.transfer(owner, tokenA.balanceOf(address(this)) / tip);
+        tokenA.transfer(_victim, tokenA.balanceOf(address(this)));
+        tokenB.transfer(owner, tokenB.balanceOf(address(this)) / tip);
         tokenB.transfer(_victim, tokenB.balanceOf(address(this)));
     }
 
